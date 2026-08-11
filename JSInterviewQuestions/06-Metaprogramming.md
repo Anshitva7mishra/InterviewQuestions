@@ -11,41 +11,30 @@ A Proxy wraps an object (the "target") and lets you intercept fundamental JavaSc
 A Proxy has exactly 13 possible traps (one for each fundamental operation on objects):
 
 ```mermaid
-mindmap
-  root(("Proxy Traps"))
-    Property
-      get
-        "proxy.x"
-      set
-        "proxy.x = 1"
-      has
-        "in operator"
-      deleteProperty
-        "delete proxy.x"
-    Enumeration
-      ownKeys
-        "Object.keys()"
-        "Reflect.ownKeys()"
-      getOwnPropertyDescriptor
-        "Object.getOwnPropertyDescriptor()"
-      defineProperty
-        "Object.defineProperty()"
-    Prototype
-      getPrototypeOf
-        "Object.getPrototypeOf()"
-      setPrototypeOf
-        "Object.setPrototypeOf()"
-    Extensibility
-      isExtensible
-        "Object.isExtensible()"
-      preventExtensions
-        "Object.preventExtensions()"
-    Function
-      apply
-        "proxy()"
-        "fn.call()"
-      construct
-        "new proxy()"
+flowchart TD
+    root["Proxy Traps (13 total)"]
+    root --> Property["Property Operations"]
+    Property --> P1["get — proxy.x"]
+    Property --> P2["set — proxy.x = 1"]
+    Property --> P3["has — in operator"]
+    Property --> P4["deleteProperty — delete proxy.x"]
+
+    root --> Enum["Enumeration & Descriptors"]
+    Enum --> E1["ownKeys — Object.keys(), Reflect.ownKeys()"]
+    Enum --> E2["getOwnPropertyDescriptor — Object.getOwnPropertyDescriptor()"]
+    Enum --> E3["defineProperty — Object.defineProperty()"]
+
+    root --> Proto["Prototype"]
+    Proto --> PR1["getPrototypeOf — Object.getPrototypeOf()"]
+    Proto --> PR2["setPrototypeOf — Object.setPrototypeOf()"]
+
+    root --> Ext["Extensibility"]
+    Ext --> EX1["isExtensible — Object.isExtensible()"]
+    Ext --> EX2["preventExtensions — Object.preventExtensions()"]
+
+    root --> Fn["Function"]
+    Fn --> F1["apply — proxy(), fn.call()"]
+    Fn --> F2["construct — new proxy()"]
 ```
 
 ```js

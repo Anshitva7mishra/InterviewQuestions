@@ -585,23 +585,26 @@ Yes, but with friction:
 Module Federation (webpack 5+) allows a JavaScript application to dynamically load code from another independently deployed application at runtime — sharing modules across build boundaries without pre-bundling them together.
 
 ```mermaid
-flowchart TD
-    subgraph Shell ["Shell App (host)\nDeployed at: app.com"]
-        H1["bootstrap.js\nLoads remotes at runtime"]
-        H2["App.jsx\nuses components from remotes"]
+flowchart LR
+    subgraph Shell ["Shell App (host) — app.com"]
+        direction TB
+        H1["bootstrap.js<br/>Loads remotes at runtime"]
+        H2["App.jsx<br/>Uses remote components"]
     end
 
-    subgraph Cart ["Cart Team App (remote)\nDeployed at: cart.company.com"]
-        C1["CartWidget.jsx\nexposed as 'CartWidget'"]
-        C2["webpack.config.js\nexposes: { CartWidget }"]
+    subgraph Cart ["Cart App (remote) — cart.company.com"]
+        direction TB
+        C1["CartWidget.jsx<br/>exposed as 'CartWidget'"]
+        C2["webpack.config.js<br/>exposes: { CartWidget }"]
     end
 
-    subgraph Checkout ["Checkout Team App (remote)\nDeployed at: checkout.company.com"]
-        O1["CheckoutFlow.jsx\nexposed as 'CheckoutFlow'"]
+    subgraph Checkout ["Checkout App (remote) — checkout.company.com"]
+        direction TB
+        O1["CheckoutFlow.jsx<br/>exposed as 'CheckoutFlow'"]
     end
 
-    Shell --> |"fetch cartApp/remoteEntry.js"| Cart
-    Shell --> |"fetch checkoutApp/remoteEntry.js"| Checkout
+    H2 --> |"fetch cartApp/remoteEntry.js"| C1
+    H2 --> |"fetch checkoutApp/remoteEntry.js"| O1
 
     %% Each team deploys independently.
     %% Shell loads their latest code at runtime.

@@ -806,38 +806,31 @@ Symbol.keyFor(s1); // "shared"
 Well-known Symbols (built into the language — used to customize built-in behavior):
 
 ```mermaid
-mindmap
-  root(("Well-Known Symbols"))
-    Iteration
-      "Symbol.iterator"
-        "for...of / spread / destructuring"
-      "Symbol.asyncIterator"
-        "for await...of"
-    Coercion
-      "Symbol.toPrimitive"
-        "Number() / String() / + operator"
-      "Symbol.toStringTag"
-        "Object.prototype.toString"
-    OOP
-      "Symbol.hasInstance"
-        "instanceof operator"
-      "Symbol.species"
-        "Constructor for derived objects"
-    Array Ops
-      "Symbol.isConcatSpreadable"
-        "Array.prototype.concat"
-    String Methods
-      "Symbol.match"
-        "str.match()"
-      "Symbol.replace"
-        "str.replace()"
-      "Symbol.search"
-        "str.search()"
-      "Symbol.split"
-        "str.split()"
-    Scoping
-      "Symbol.unscopables"
-        "with statement exclusion"
+flowchart TD
+    root["Well-Known Symbols"]
+    root --> Iteration["Iteration"]
+    Iteration --> S1["Symbol.iterator<br/>for...of / spread / destructuring"]
+    Iteration --> S2["Symbol.asyncIterator<br/>for await...of"]
+
+    root --> Coercion["Coercion"]
+    Coercion --> S3["Symbol.toPrimitive<br/>Number() / String() / + operator"]
+    Coercion --> S4["Symbol.toStringTag<br/>Object.prototype.toString"]
+
+    root --> OOP["OOP"]
+    OOP --> S5["Symbol.hasInstance<br/>instanceof operator"]
+    OOP --> S6["Symbol.species<br/>Constructor for derived objects"]
+
+    root --> ArrayOps["Array Ops"]
+    ArrayOps --> S7["Symbol.isConcatSpreadable<br/>Array.prototype.concat"]
+
+    root --> StringMethods["String Methods"]
+    StringMethods --> S8["Symbol.match — str.match()"]
+    StringMethods --> S9["Symbol.replace — str.replace()"]
+    StringMethods --> S10["Symbol.search — str.search()"]
+    StringMethods --> S11["Symbol.split — str.split()"]
+
+    root --> Scoping["Scoping"]
+    Scoping --> S12["Symbol.unscopables<br/>with statement exclusion"]
 ```
 
 **GOTCHA:** Symbols are NOT coerced to strings automatically. `"" + Symbol("x")` throws `TypeError`. You must explicitly call `.toString()` or `.description`.
